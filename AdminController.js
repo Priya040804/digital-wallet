@@ -1,10 +1,6 @@
 const User = require('../Models/UserModel');
 const FraudLog = require('../Models/FraudModel');
 
-/**
- * 
- * Get all flagged (fraud) transactions
- */
 exports.viewFlagged = async (req, res, next) => {
   try {
     const logs = await FraudLog.find()
@@ -16,9 +12,7 @@ exports.viewFlagged = async (req, res, next) => {
   }
 };
 
-/**
- * Aggregate total user balances across all currencies
- */
+
 exports.aggregateBalances = async (req, res, next) => {
   try {
     const users = await User.find({}, 'username wallet');
@@ -34,9 +28,6 @@ exports.aggregateBalances = async (req, res, next) => {
   }
 };
 
-/**
- * Get top N users by total balance
- */
 exports.topUsersByBalance = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
@@ -53,9 +44,7 @@ exports.topUsersByBalance = async (req, res, next) => {
   }
 };
 
-/**
- * Get top N users by transaction volume (sum of amounts)
- */
+
 exports.topUsersByVolume = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
