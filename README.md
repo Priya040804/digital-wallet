@@ -1,4 +1,4 @@
-💳** Digital Wallet System**
+💳Digital Wallet System
 A secure and feature-rich digital wallet application built with Node.js, Express, and MongoDB. This system enables users to manage multiple currencies, perform transactions, and includes fraud detection mechanisms to ensure the integrity of operations.
 
 
