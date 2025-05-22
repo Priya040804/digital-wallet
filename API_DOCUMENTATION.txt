@@ -1,0 +1,119 @@
+Authentication
+1. Register User
+Endpoint: POST /auth/register
+Description: Register a new user account.
+Request Body:
+{
+  "username": "string",
+  "email": "string",
+  "password": "string"
+}
+Response:
+Success: 201 Created with user data (excluding password)
+Failure: 400 Bad Request (validation errors)
+
+2. Login User
+Endpoint: POST /auth/login
+
+Description: Login user and receive JWT token.
+
+Request Body:
+{
+  "email": "string",
+  "password": "string"
+}
+Response:
+Success: 200 OK with JWT token
+Failure: 401 Unauthorized (invalid credentials)
+
+3. User Operations (Requires Authentication)
+Deposit Funds
+Endpoint: POST /user/deposit
+
+Description: Add funds to the user's wallet.
+
+Request Body:
+{
+  "currency": "string",
+  "amount": "number"
+}
+Response:
+Success: 200 OK with updated wallet balance for the currency
+Failure: 400 Bad Request (validation errors)
+
+4. Withdraw Funds
+Endpoint: POST /user/withdraw
+
+Description: Withdraw funds from the user's wallet.
+
+Request Body:
+{
+  "currency": "string",
+  "amount": "number"
+}
+Response:
+Success: 200 OK with updated wallet balance
+Failure: 400 Bad Request / 403 Forbidden (insufficient funds)
+
+5. Transfer Funds
+Endpoint: POST /user/transfer
+
+Description: Transfer funds to another user.
+
+Request Body:
+{
+  "toUsername": "string",
+  "currency": "string",
+  "amount": "number"
+}
+Response:
+Success: 200 OK with updated sender balance
+Failure: 400 Bad Request / 403 Forbidden (insufficient funds or invalid target user)
+
+6. Transaction History
+Endpoint: GET /user/history
+
+Description: Retrieve user's transaction history.
+
+Query Parameters (optional):
+
+type (deposit, withdraw, transfer)
+
+currency (e.g. USD, INR)
+
+Response:
+Success: 200 OK with an array of transactions
+Failure: 400 Bad Request (invalid query parameters)
+
+7. Admin Operations (Requires Admin Role)
+List All Users
+Endpoint: GET /admin/users
+
+Description: Retrieve a list of all registered users.
+
+Response:
+Success: 200 OK with array of user objects
+Failure: 403 Forbidden (if not admin)
+
+8. View Fraud Logs
+Endpoint: GET /admin/fraud-logs
+
+Description: Retrieve all logged fraudulent activities.
+
+Response:
+Success: 200 OK with array of fraud log entries
+Failure: 403 Forbidden (if not admin)
+
+
+
+Fraud Detection Middleware
+Automatically triggers on deposit, withdraw, and transfer endpoints.
+Detects:
+High-frequency transactions (>5 per minute of same type)
+Sudden large transactions (3x average or above threshold)
+Suspicious activities are logged and email alerts sent.
+
+Notes
+All endpoints (except registration and login) require JWT authentication.
+Use the JWT token in the Authorization header as Bearer <token>.
+For email notifications, currently a mock function is used.
