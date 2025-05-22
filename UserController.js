@@ -1,11 +1,5 @@
-
-
-
 const User = require('../Models/UserModel');
 
-/**
- * Transfer amount from the verified user to another user
- */
 exports.Transfer = async (req, res, next) => {
   try {
     const fromUserId = req.user.id;
@@ -40,9 +34,6 @@ exports.Transfer = async (req, res, next) => {
   }
 };
 
-/**
- * Deposit amount into the verified user's wallet
- */
 exports.Deposit = async (req, res, next) => {
   try {
     const userId = req.user.id;
@@ -67,9 +58,6 @@ exports.Deposit = async (req, res, next) => {
   }
 };
 
-/**
- * Withdraw amount from the verified user's wallet
- */
 exports.Withdraw = async (req, res, next) => {
   try {
     const userId = req.user.id;
@@ -94,9 +82,6 @@ exports.Withdraw = async (req, res, next) => {
   }
 };
 
-/**
- * Get transaction history for the verified user
- */
 exports.History = async (req, res, next) => {
   try {
     const userId = req.user.id;
@@ -114,9 +99,7 @@ exports.History = async (req, res, next) => {
   }
 };
 
-/**
- * Get current balance for a specific currency or full wallet
- */
+
 exports.Balance = async (req, res, next) => {
   try {
     const userId = req.user.id;
@@ -139,9 +122,6 @@ exports.Balance = async (req, res, next) => {
   }
 };
 
-/**
- * Soft delete the user (close account)
- */
 exports.closeAccount = async (req, res, next) => {
   try {
     const userId = req.user.id;
